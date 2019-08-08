@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ab2d0dcd4d184d678b1ed4eead3908f0" Name="Diagram1">
+        <EntityTypeShape EntityType="dbATUModel.Arızalar" Width="1.5" PointX="5.25" PointY="2.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Ekipler" Width="1.5" PointX="1.875" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Kategori_1" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Kategori_2" Width="1.5" PointX="3.625" PointY="2.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.KullaniciGruplari" Width="1.5" PointX="7.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Kullanicilar" Width="1.5" PointX="9.375" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Personel" Width="1.5" PointX="1.875" PointY="5" IsExpanded="true" />
+        <EntityTypeShape EntityType="dbATUModel.Tokens" Width="1.5" PointX="12" PointY="4.75" IsExpanded="true" />
+        <AssociationConnector Association="dbATUModel.Arızalar_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.Arızalar_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.Kullanicilar_fk1" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.FK__Tokens__Kullanic__671F4F74" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.Kullanicilar_fk0" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.EkipKategori" ManuallyRouted="false" />
+        <AssociationConnector Association="dbATUModel.EkipKisiler" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbATUModel.LogMetaData" Width="1.5" PointX="7.75" PointY="1.875" />
+        <AssociationConnector Association="dbATUModel.FK_arizalar_Olusturan" />
+        <AssociationConnector Association="dbATUModel.FK_Arızalar_olusturan" />
+        <AssociationConnector Association="dbATUModel.fk_cozumEkibi" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

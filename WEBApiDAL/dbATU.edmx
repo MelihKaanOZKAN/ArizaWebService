@@ -1,0 +1,705 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbATUModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Arızalar">
+          <Key>
+            <PropertyRef Name="ArızaNo" />
+          </Key>
+          <Property Name="ArızaNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Kat1" Type="int" Nullable="false" />
+          <Property Name="Kat2" Type="int" Nullable="false" />
+          <Property Name="Olusturan" Type="int" Nullable="false" />
+          <Property Name="ArızaBaslik" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ArızaNotu" Type="varchar" MaxLength="1000" Nullable="false" />
+          <Property Name="ArızaTarihi" Type="date" Nullable="false" />
+          <Property Name="ArızaYeri" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ArızaDurumu" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="CozumAciklama" Type="varchar" MaxLength="1000" />
+          <Property Name="CozumEkibi" Type="int" />
+          <Property Name="CozumTarihi" Type="date" />
+        </EntityType>
+        <EntityType Name="EkipKategori">
+          <Key>
+            <PropertyRef Name="EkipNo" />
+            <PropertyRef Name="Kategori" />
+          </Key>
+          <Property Name="EkipNo" Type="int" Nullable="false" />
+          <Property Name="Kategori" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="EkipKisiler">
+          <Key>
+            <PropertyRef Name="EkipNo" />
+            <PropertyRef Name="KisiNo" />
+          </Key>
+          <Property Name="EkipNo" Type="int" Nullable="false" />
+          <Property Name="KisiNo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Ekipler">
+          <Key>
+            <PropertyRef Name="EkipNo" />
+          </Key>
+          <Property Name="EkipNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EkipAdi" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategori_1">
+          <Key>
+            <PropertyRef Name="KategoriNo" />
+          </Key>
+          <Property Name="KategoriNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KategoriAdı" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kategori_2">
+          <Key>
+            <PropertyRef Name="KategoriNo" />
+          </Key>
+          <Property Name="KategoriNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UstKategori" Type="int" Nullable="false" />
+          <Property Name="KategoriAdı" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="KullaniciGruplari">
+          <Key>
+            <PropertyRef Name="GrupNo" />
+          </Key>
+          <Property Name="GrupNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GrupAdi" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="ArızaEkleme" Type="bit" Nullable="false" />
+          <Property Name="ArızaCozme" Type="bit" Nullable="false" />
+          <Property Name="PersonelEkleme" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciAdi" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Sifre" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="PersonelNo" Type="int" Nullable="false" />
+          <Property Name="KullaniciGrubu" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LogMetaData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RequestContentType" Type="varchar(max)" />
+          <Property Name="RequestUri" Type="varchar(max)" />
+          <Property Name="RequestMethod" Type="varchar(max)" />
+          <Property Name="RequestTimestamp" Type="datetime" />
+          <Property Name="ResponseContentType" Type="varchar(max)" />
+          <Property Name="ResponseStatusCode" Type="varchar(max)" />
+          <Property Name="ResponseTimestamp" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelNo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KimlikNo" Type="decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="Adi" Type="varchar" MaxLength="255" Nullable="false" />
+          <Property Name="Soyadi" Type="varchar" MaxLength="255" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tokens">
+          <Key>
+            <PropertyRef Name="TokenId" />
+          </Key>
+          <Property Name="TokenId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KullaniciNo" Type="int" Nullable="false" />
+          <Property Name="Token" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="EkipKategori_fk0">
+          <End Role="Ekipler" Type="Self.Ekipler" Multiplicity="1" />
+          <End Role="EkipKategori" Type="Self.EkipKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ekipler">
+              <PropertyRef Name="EkipNo" />
+            </Principal>
+            <Dependent Role="EkipKategori">
+              <PropertyRef Name="EkipNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EkipKategori_fk1">
+          <End Role="Kategori_2" Type="Self.Kategori_2" Multiplicity="1" />
+          <End Role="EkipKategori" Type="Self.EkipKategori" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_2">
+              <PropertyRef Name="KategoriNo" />
+            </Principal>
+            <Dependent Role="EkipKategori">
+              <PropertyRef Name="Kategori" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tokens__Kullanic__671F4F74">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tokens" Type="Self.Tokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciNo" />
+            </Principal>
+            <Dependent Role="Tokens">
+              <PropertyRef Name="KullaniciNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arızalar_olusturan">
+          <End Role="Arızalar" Type="Self.Arızalar" Multiplicity="1" />
+          <End Role="Arızalar1" Type="Self.Arızalar" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Arızalar">
+              <PropertyRef Name="ArızaNo" />
+            </Principal>
+            <Dependent Role="Arızalar1">
+              <PropertyRef Name="ArızaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_arizalar_Olusturan">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1" />
+          <End Role="Arızalar" Type="Self.Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="Olusturan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cozumEkibi">
+          <End Role="Ekipler" Type="Self.Ekipler" Multiplicity="0..1" />
+          <End Role="Arızalar" Type="Self.Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ekipler">
+              <PropertyRef Name="EkipNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="CozumEkibi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ekipKisiler_EkipNo">
+          <End Role="Ekipler" Type="Self.Ekipler" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EkipKisiler" Type="Self.EkipKisiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ekipler">
+              <PropertyRef Name="EkipNo" />
+            </Principal>
+            <Dependent Role="EkipKisiler">
+              <PropertyRef Name="EkipNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_ekipKisiler_Kisiler">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="EkipKisiler" Type="Self.EkipKisiler" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="PersonelNo" />
+            </Principal>
+            <Dependent Role="EkipKisiler">
+              <PropertyRef Name="KisiNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kullanicilar_fk0">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="PersonelNo" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="PersonelNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kullanicilar_fk1">
+          <End Role="KullaniciGruplari" Type="Self.KullaniciGruplari" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGruplari">
+              <PropertyRef Name="GrupNo" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="KullaniciGrubu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbATUModelStoreContainer">
+          <EntitySet Name="Arızalar" EntityType="Self.Arızalar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EkipKategori" EntityType="Self.EkipKategori" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="EkipKisiler" EntityType="Self.EkipKisiler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Ekipler" EntityType="Self.Ekipler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori_1" EntityType="Self.Kategori_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kategori_2" EntityType="Self.Kategori_2" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="KullaniciGruplari" EntityType="Self.KullaniciGruplari" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LogMetaData" EntityType="Self.LogMetaData" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="EkipKategori_fk0" Association="Self.EkipKategori_fk0">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="EkipKategori" EntitySet="EkipKategori" />
+          </AssociationSet>
+          <AssociationSet Name="EkipKategori_fk1" Association="Self.EkipKategori_fk1">
+            <End Role="Kategori_2" EntitySet="Kategori_2" />
+            <End Role="EkipKategori" EntitySet="EkipKategori" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tokens__Kullanic__671F4F74" Association="Self.FK__Tokens__Kullanic__671F4F74">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Tokens" EntitySet="Tokens" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arızalar_olusturan" Association="Self.FK_Arızalar_olusturan">
+            <End Role="Arızalar" EntitySet="Arızalar" />
+            <End Role="Arızalar1" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_arizalar_Olusturan" Association="Self.FK_arizalar_Olusturan">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cozumEkibi" Association="Self.fk_cozumEkibi">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ekipKisiler_EkipNo" Association="Self.fk_ekipKisiler_EkipNo">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="EkipKisiler" EntitySet="EkipKisiler" />
+          </AssociationSet>
+          <AssociationSet Name="fk_ekipKisiler_Kisiler" Association="Self.fk_ekipKisiler_Kisiler">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="EkipKisiler" EntitySet="EkipKisiler" />
+          </AssociationSet>
+          <AssociationSet Name="Kullanicilar_fk0" Association="Self.Kullanicilar_fk0">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+          <AssociationSet Name="Kullanicilar_fk1" Association="Self.Kullanicilar_fk1">
+            <End Role="KullaniciGruplari" EntitySet="KullaniciGruplari" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbATUModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Arızalar">
+          <Key>
+            <PropertyRef Name="ArızaNo" />
+          </Key>
+          <Property Name="ArızaNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Kat1" Type="Int32" Nullable="false" />
+          <Property Name="Kat2" Type="Int32" Nullable="false" />
+          <Property Name="ArızaBaslik" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArızaNotu" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArızaTarihi" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ArızaYeri" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArızaDurumu" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CozumAciklama" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+          <Property Name="CozumEkibi" Type="Int32" />
+          <NavigationProperty Name="Kategori_1" Relationship="Self.Arızalar_fk0" FromRole="Arızalar" ToRole="Kategori_1" />
+          <NavigationProperty Name="Kategori_2" Relationship="Self.Arızalar_fk1" FromRole="Arızalar" ToRole="Kategori_2" />
+          <Property Name="CozumTarihi" Type="DateTime" Precision="0" />
+          <Property Name="Olusturan" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="dbATUModel.FK_arizalar_Olusturan" FromRole="Arızalar" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Arızalar1" Relationship="dbATUModel.FK_Arızalar_olusturan" FromRole="Arızalar" ToRole="Arızalar1" />
+          <NavigationProperty Name="Arızalar2" Relationship="dbATUModel.FK_Arızalar_olusturan" FromRole="Arızalar1" ToRole="Arızalar" />
+          <NavigationProperty Name="Ekipler" Relationship="dbATUModel.fk_cozumEkibi" FromRole="Arızalar" ToRole="Ekipler" />
+        </EntityType>
+        <EntityType Name="Ekipler">
+          <Key>
+            <PropertyRef Name="EkipNo" />
+          </Key>
+          <Property Name="EkipNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EkipAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Kategori_2" Relationship="Self.EkipKategori" FromRole="Ekipler" ToRole="Kategori_2" />
+          <NavigationProperty Name="Personel" Relationship="Self.EkipKisiler" FromRole="Ekipler" ToRole="Personel" />
+          <NavigationProperty Name="Arızalar" Relationship="dbATUModel.fk_cozumEkibi" FromRole="Ekipler" ToRole="Arızalar" />
+        </EntityType>
+        <EntityType Name="Kategori_1">
+          <Key>
+            <PropertyRef Name="KategoriNo" />
+          </Key>
+          <Property Name="KategoriNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KategoriAdı" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Arızalar" Relationship="Self.Arızalar_fk0" FromRole="Kategori_1" ToRole="Arızalar" />
+        </EntityType>
+        <EntityType Name="Kategori_2">
+          <Key>
+            <PropertyRef Name="KategoriNo" />
+          </Key>
+          <Property Name="KategoriNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UstKategori" Type="Int32" Nullable="false" />
+          <Property Name="KategoriAdı" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Arızalar" Relationship="Self.Arızalar_fk1" FromRole="Kategori_2" ToRole="Arızalar" />
+          <NavigationProperty Name="Ekipler" Relationship="Self.EkipKategori" FromRole="Kategori_2" ToRole="Ekipler" />
+        </EntityType>
+        <EntityType Name="KullaniciGruplari">
+          <Key>
+            <PropertyRef Name="GrupNo" />
+          </Key>
+          <Property Name="GrupNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GrupAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ArızaEkleme" Type="Boolean" Nullable="false" />
+          <Property Name="ArızaCozme" Type="Boolean" Nullable="false" />
+          <Property Name="PersonelEkleme" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.Kullanicilar_fk1" FromRole="KullaniciGruplari" ToRole="Kullanicilar" />
+        </EntityType>
+        <EntityType Name="Kullanicilar">
+          <Key>
+            <PropertyRef Name="KullaniciNo" />
+          </Key>
+          <Property Name="KullaniciNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciAdi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Sifre" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PersonelNo" Type="Int32" Nullable="false" />
+          <Property Name="KullaniciGrubu" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="KullaniciGruplari" Relationship="Self.Kullanicilar_fk1" FromRole="Kullanicilar" ToRole="KullaniciGruplari" />
+          <NavigationProperty Name="Tokens" Relationship="Self.FK__Tokens__Kullanic__671F4F74" FromRole="Kullanicilar" ToRole="Tokens" />
+          <NavigationProperty Name="Personel" Relationship="Self.Kullanicilar_fk0" FromRole="Kullanicilar" ToRole="Personel" />
+          <NavigationProperty Name="Arızalar" Relationship="dbATUModel.FK_arizalar_Olusturan" FromRole="Kullanicilar" ToRole="Arızalar" />
+        </EntityType>
+        <EntityType Name="Personel">
+          <Key>
+            <PropertyRef Name="PersonelNo" />
+          </Key>
+          <Property Name="PersonelNo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KimlikNo" Type="Decimal" Precision="11" Scale="0" Nullable="false" />
+          <Property Name="Adi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Soyadi" Type="String" MaxLength="255" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.Kullanicilar_fk0" FromRole="Personel" ToRole="Kullanicilar" />
+          <NavigationProperty Name="Ekipler" Relationship="Self.EkipKisiler" FromRole="Personel" ToRole="Ekipler" />
+        </EntityType>
+        <EntityType Name="Tokens">
+          <Key>
+            <PropertyRef Name="TokenId" />
+          </Key>
+          <Property Name="TokenId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KullaniciNo" Type="Int32" Nullable="false" />
+          <Property Name="Token" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Kullanicilar" Relationship="Self.FK__Tokens__Kullanic__671F4F74" FromRole="Tokens" ToRole="Kullanicilar" />
+        </EntityType>
+        <Association Name="Arızalar_fk0">
+          <End Role="Kategori_1" Type="Self.Kategori_1" Multiplicity="1" />
+          <End Role="Arızalar" Type="Self.Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_1">
+              <PropertyRef Name="KategoriNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="Kat1" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Arızalar_fk1">
+          <End Role="Kategori_2" Type="Self.Kategori_2" Multiplicity="1" />
+          <End Role="Arızalar" Type="Self.Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kategori_2">
+              <PropertyRef Name="KategoriNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="Kat2" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kullanicilar_fk1">
+          <End Role="KullaniciGruplari" Type="Self.KullaniciGruplari" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="KullaniciGruplari">
+              <PropertyRef Name="GrupNo" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="KullaniciGrubu" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Tokens__Kullanic__671F4F74">
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="Tokens" Type="Self.Tokens" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciNo" />
+            </Principal>
+            <Dependent Role="Tokens">
+              <PropertyRef Name="KullaniciNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="Kullanicilar_fk0">
+          <End Role="Personel" Type="Self.Personel" Multiplicity="1" />
+          <End Role="Kullanicilar" Type="Self.Kullanicilar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personel">
+              <PropertyRef Name="PersonelNo" />
+            </Principal>
+            <Dependent Role="Kullanicilar">
+              <PropertyRef Name="PersonelNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="EkipKategori">
+          <End Role="Ekipler" Type="Self.Ekipler" Multiplicity="*" />
+          <End Role="Kategori_2" Type="Self.Kategori_2" Multiplicity="*" />
+        </Association>
+        <Association Name="EkipKisiler">
+          <End Role="Ekipler" Type="Self.Ekipler" Multiplicity="*" />
+          <End Role="Personel" Type="Self.Personel" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="dbATUEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Arızalar" EntityType="Self.Arızalar" />
+          <EntitySet Name="Ekipler" EntityType="Self.Ekipler" />
+          <EntitySet Name="Kategori_1" EntityType="Self.Kategori_1" />
+          <EntitySet Name="Kategori_2" EntityType="Self.Kategori_2" />
+          <EntitySet Name="KullaniciGruplari" EntityType="Self.KullaniciGruplari" />
+          <EntitySet Name="Kullanicilar" EntityType="Self.Kullanicilar" />
+          <EntitySet Name="Personel" EntityType="Self.Personel" />
+          <EntitySet Name="Tokens" EntityType="Self.Tokens" />
+          <AssociationSet Name="Arızalar_fk0" Association="Self.Arızalar_fk0">
+            <End Role="Kategori_1" EntitySet="Kategori_1" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="Arızalar_fk1" Association="Self.Arızalar_fk1">
+            <End Role="Kategori_2" EntitySet="Kategori_2" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="Kullanicilar_fk1" Association="Self.Kullanicilar_fk1">
+            <End Role="KullaniciGruplari" EntitySet="KullaniciGruplari" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Tokens__Kullanic__671F4F74" Association="Self.FK__Tokens__Kullanic__671F4F74">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Tokens" EntitySet="Tokens" />
+          </AssociationSet>
+          <AssociationSet Name="Kullanicilar_fk0" Association="Self.Kullanicilar_fk0">
+            <End Role="Personel" EntitySet="Personel" />
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+          </AssociationSet>
+          <AssociationSet Name="EkipKategori" Association="Self.EkipKategori">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="Kategori_2" EntitySet="Kategori_2" />
+          </AssociationSet>
+          <AssociationSet Name="EkipKisiler" Association="Self.EkipKisiler">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="Personel" EntitySet="Personel" />
+          </AssociationSet>
+          <EntitySet Name="LogMetaData" EntityType="dbATUModel.LogMetaData" />
+          <AssociationSet Name="FK_arizalar_Olusturan" Association="dbATUModel.FK_arizalar_Olusturan">
+            <End Role="Kullanicilar" EntitySet="Kullanicilar" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Arızalar_olusturan" Association="dbATUModel.FK_Arızalar_olusturan">
+            <End Role="Arızalar" EntitySet="Arızalar" />
+            <End Role="Arızalar1" EntitySet="Arızalar" />
+          </AssociationSet>
+          <AssociationSet Name="fk_cozumEkibi" Association="dbATUModel.fk_cozumEkibi">
+            <End Role="Ekipler" EntitySet="Ekipler" />
+            <End Role="Arızalar" EntitySet="Arızalar" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="LogMetaData">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RequestContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequestUri" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequestMethod" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="RequestTimestamp" Type="DateTime" Precision="3" />
+          <Property Name="ResponseContentType" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseStatusCode" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="ResponseTimestamp" Type="DateTime" Precision="3" />
+        </EntityType>
+        <Association Name="FK_arizalar_Olusturan">
+          <End Type="dbATUModel.Kullanicilar" Role="Kullanicilar" Multiplicity="1" />
+          <End Type="dbATUModel.Arızalar" Role="Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Kullanicilar">
+              <PropertyRef Name="KullaniciNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="Olusturan" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Arızalar_olusturan">
+          <End Type="dbATUModel.Arızalar" Role="Arızalar" Multiplicity="1" />
+          <End Type="dbATUModel.Arızalar" Role="Arızalar1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Arızalar">
+              <PropertyRef Name="ArızaNo" />
+            </Principal>
+            <Dependent Role="Arızalar1">
+              <PropertyRef Name="ArızaNo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_cozumEkibi">
+          <End Type="dbATUModel.Ekipler" Role="Ekipler" Multiplicity="0..1" />
+          <End Type="dbATUModel.Arızalar" Role="Arızalar" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Ekipler">
+              <PropertyRef Name="EkipNo" />
+            </Principal>
+            <Dependent Role="Arızalar">
+              <PropertyRef Name="CozumEkibi" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbATUModelStoreContainer" CdmEntityContainer="dbATUEntities">
+          <EntitySetMapping Name="Arızalar">
+            <EntityTypeMapping TypeName="dbATUModel.Arızalar">
+              <MappingFragment StoreEntitySet="Arızalar">
+                <ScalarProperty Name="Olusturan" ColumnName="Olusturan" />
+                <ScalarProperty Name="CozumTarihi" ColumnName="CozumTarihi" />
+                <ScalarProperty Name="ArızaNo" ColumnName="ArızaNo" />
+                <ScalarProperty Name="Kat1" ColumnName="Kat1" />
+                <ScalarProperty Name="Kat2" ColumnName="Kat2" />
+                <ScalarProperty Name="ArızaBaslik" ColumnName="ArızaBaslik" />
+                <ScalarProperty Name="ArızaNotu" ColumnName="ArızaNotu" />
+                <ScalarProperty Name="ArızaTarihi" ColumnName="ArızaTarihi" />
+                <ScalarProperty Name="ArızaYeri" ColumnName="ArızaYeri" />
+                <ScalarProperty Name="ArızaDurumu" ColumnName="ArızaDurumu" />
+                <ScalarProperty Name="CozumAciklama" ColumnName="CozumAciklama" />
+                <ScalarProperty Name="CozumEkibi" ColumnName="CozumEkibi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Ekipler">
+            <EntityTypeMapping TypeName="dbATUModel.Ekipler">
+              <MappingFragment StoreEntitySet="Ekipler">
+                <ScalarProperty Name="EkipNo" ColumnName="EkipNo" />
+                <ScalarProperty Name="EkipAdi" ColumnName="EkipAdi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategori_1">
+            <EntityTypeMapping TypeName="dbATUModel.Kategori_1">
+              <MappingFragment StoreEntitySet="Kategori_1">
+                <ScalarProperty Name="KategoriNo" ColumnName="KategoriNo" />
+                <ScalarProperty Name="KategoriAdı" ColumnName="KategoriAdı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kategori_2">
+            <EntityTypeMapping TypeName="dbATUModel.Kategori_2">
+              <MappingFragment StoreEntitySet="Kategori_2">
+                <ScalarProperty Name="KategoriNo" ColumnName="KategoriNo" />
+                <ScalarProperty Name="UstKategori" ColumnName="UstKategori" />
+                <ScalarProperty Name="KategoriAdı" ColumnName="KategoriAdı" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="KullaniciGruplari">
+            <EntityTypeMapping TypeName="dbATUModel.KullaniciGruplari">
+              <MappingFragment StoreEntitySet="KullaniciGruplari">
+                <ScalarProperty Name="GrupNo" ColumnName="GrupNo" />
+                <ScalarProperty Name="GrupAdi" ColumnName="GrupAdi" />
+                <ScalarProperty Name="ArızaEkleme" ColumnName="ArızaEkleme" />
+                <ScalarProperty Name="ArızaCozme" ColumnName="ArızaCozme" />
+                <ScalarProperty Name="PersonelEkleme" ColumnName="PersonelEkleme" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Kullanicilar">
+            <EntityTypeMapping TypeName="dbATUModel.Kullanicilar">
+              <MappingFragment StoreEntitySet="Kullanicilar">
+                <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+                <ScalarProperty Name="KullaniciAdi" ColumnName="KullaniciAdi" />
+                <ScalarProperty Name="Sifre" ColumnName="Sifre" />
+                <ScalarProperty Name="PersonelNo" ColumnName="PersonelNo" />
+                <ScalarProperty Name="KullaniciGrubu" ColumnName="KullaniciGrubu" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Personel">
+            <EntityTypeMapping TypeName="dbATUModel.Personel">
+              <MappingFragment StoreEntitySet="Personel">
+                <ScalarProperty Name="PersonelNo" ColumnName="PersonelNo" />
+                <ScalarProperty Name="KimlikNo" ColumnName="KimlikNo" />
+                <ScalarProperty Name="Adi" ColumnName="Adi" />
+                <ScalarProperty Name="Soyadi" ColumnName="Soyadi" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tokens">
+            <EntityTypeMapping TypeName="dbATUModel.Tokens">
+              <MappingFragment StoreEntitySet="Tokens">
+                <ScalarProperty Name="TokenId" ColumnName="TokenId" />
+                <ScalarProperty Name="KullaniciNo" ColumnName="KullaniciNo" />
+                <ScalarProperty Name="Token" ColumnName="Token" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="EkipKategori" TypeName="dbATUModel.EkipKategori" StoreEntitySet="EkipKategori">
+            <EndProperty Name="Ekipler">
+              <ScalarProperty Name="EkipNo" ColumnName="EkipNo" />
+            </EndProperty>
+            <EndProperty Name="Kategori_2">
+              <ScalarProperty Name="KategoriNo" ColumnName="Kategori" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <AssociationSetMapping Name="EkipKisiler" TypeName="dbATUModel.EkipKisiler" StoreEntitySet="EkipKisiler">
+            <EndProperty Name="Ekipler">
+              <ScalarProperty Name="EkipNo" ColumnName="EkipNo" />
+            </EndProperty>
+            <EndProperty Name="Personel">
+              <ScalarProperty Name="PersonelNo" ColumnName="KisiNo" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="LogMetaData">
+            <EntityTypeMapping TypeName="dbATUModel.LogMetaData">
+              <MappingFragment StoreEntitySet="LogMetaData">
+                <ScalarProperty Name="ResponseTimestamp" ColumnName="ResponseTimestamp" />
+                <ScalarProperty Name="ResponseStatusCode" ColumnName="ResponseStatusCode" />
+                <ScalarProperty Name="ResponseContentType" ColumnName="ResponseContentType" />
+                <ScalarProperty Name="RequestTimestamp" ColumnName="RequestTimestamp" />
+                <ScalarProperty Name="RequestMethod" ColumnName="RequestMethod" />
+                <ScalarProperty Name="RequestUri" ColumnName="RequestUri" />
+                <ScalarProperty Name="RequestContentType" ColumnName="RequestContentType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

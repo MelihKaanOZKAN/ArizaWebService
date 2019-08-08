@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="WebApi.Controllers.EkiplerController">
+    <Position X="3.5" Y="1" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QAAAAAAgAEAAAAAAAAAAAAIAAAAAQAEAgAAAAAAAAAE=</HashCode>
+      <FileName>Controllers\EkiplerController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.Kategori_1Controller">
+    <Position X="3.25" Y="4.25" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAgAAAAAQAAAAAAAgAAAAABAAQAAA=</HashCode>
+      <FileName>Controllers\Kategori_1Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.Kategori_2Controller">
+    <Position X="8.5" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAgAAAAAAAAQAgAAAAAQAAAAAAAAAAAAAAAAQAAA=</HashCode>
+      <FileName>Controllers\Kategori_2Controller.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.KullaniciGruplariController">
+    <Position X="6.25" Y="4.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAQAAAAAABQAgAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Controllers\KullaniciGruplariController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.KullanicilarController">
+    <Position X="1.25" Y="4.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAEABAAAAAACAAAAAAAAACAA=</HashCode>
+      <FileName>Controllers\KullanicilarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.PersonelController">
+    <Position X="1.5" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAIAAoAAAAAAA=</HashCode>
+      <FileName>Controllers\PersonelController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="WebApi.Controllers.ArizalarController">
+    <Position X="5.25" Y="1" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAgEAAAAAAAYACAAAAAAAAACAAgAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Controllers\ArizalarController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
